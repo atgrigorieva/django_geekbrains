@@ -34,5 +34,5 @@ def about_us(request):
 
 def content(request, name=None):
     print(name)
-    context = {'content': Content.objects.filter(name=name)}
+    context = {'cont': Content.objects.get(name=name)}
     return render(request, 'mainapp/content.html', context)
