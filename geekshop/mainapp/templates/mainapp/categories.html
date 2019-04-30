@@ -1,0 +1,37 @@
+{% extends 'mainapp/information.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Продукты</title>
+{% endblock %}
+
+<article>
+
+    {% block titlePage %}
+        <div id="news" style="margin-bottom:5px;">
+                <h1><p>
+                    Категории
+                </p></h1>
+            </div>
+    {% endblock %}
+
+</article>
+
+{% block pathInc %}
+    <a href="/">Главная</a> &rarr;&nbsp;Категории
+{% endblock %}
+
+{% block content %}
+
+    {% for category in categories %}
+
+        <a href="{% url 'products:index' %}{{ category.id }}"><h3>{{ category.name }}</h3></a>
+
+    {% endfor %}
+
+{% endblock %}
+
+{% block information %}
+    {% include 'mainapp/includes/inc_information.html' %}
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends 'mainapp/information.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Продукты</title>
+{% endblock %}
+
+<article>
+
+    {% block titlePage %}
+        <div id="news" style="margin-bottom:5px;">
+                <h1><p>
+                    Продукты
+                </p></h1>
+            </div>
+    {% endblock %}
+
+</article>
+
+{% block pathInc %}
+    <a href="/">Главная</a> &rarr;&nbsp;Продукты
+{% endblock %}
+
+{% block content %}
+
+
+{% endblock %}
+
+{% block information %}
+    {% include 'mainapp/includes/inc_information.html' %}
+{% endblock %}
+

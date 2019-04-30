@@ -1,0 +1,135 @@
+.contact{
+    border: 0.5px solid #0e3c68;
+    width: 1200px;
+    color: #0e3c68;
+    border-radius: 10px;
+    min-height: 100px;
+    height: 100%;
+    overflow: hidden;
+}
+#contact1 {
+    width: 1177px;
+    color: #0e3c68;
+    /* margin-left: 20px; */
+    /* margin-top: 50px; */
+    min-height: 470px;
+    height: 100%;
+    /* margin: 0 auto; */
+    margin-top: 20px;
+    /* margin-bottom: 154px; */
+    margin-left: 20px;
+    margin-bottom:10px;
+}
+#contact1 p a{
+    color: #330066;
+    text-decoration: none;
+    font-weight:bold;
+}
+#contact1 p{
+    margin-top: 20px;
+}
+#contact1 ul li{
+    margin-left:0px;
+}
+
+/*---------------------------------------------------------Контакты------------------------------------------------------------------*/
+.mini-menu {
+    margin: 0px auto;
+
+    overflow: hidden;
+    font: normal 14px Helvetica, Arial, sans-serif;
+}
+.mini-menu ul {
+    margin: 0;
+    padding:0;
+    list-style: none;
+}
+.mini-menu > ul > li {
+    position: relative;
+}
+.mini-menu > ul > li > a {
+    display: block;
+    padding: .7em 1em;
+    outline: 0;
+
+    text-decoration: none;
+
+    font-weight: normal;
+}
+.mini-menu > ul > li > a:hover,
+.mini-menu > ul > li > a.active {
+
+}
+.mini-menu .sub  ul {
+    display: none;
+    overflow: hidden;
+
+}
+.mini-menu .sub ul li a {
+
+    text-decoration: none;
+}
+.mini-menu .sub ul li a:hover,
+.mini-menu .sub ul li a.active {
+
+}
+.mini-menu .sub ul li a:after{
+    float: left;
+
+}
+.mini-menu .sub > a:before {
+
+    display:inline-block;
+    position: absolute;
+
+    line-height: .8em;
+
+    text-indent: 0;
+    text-align: center;
+    text-shadow:none;
+    font-weight: 500;
+
+}
+/* активный переключатель */
+.mini-menu .sub > a.active:before{
+
+}
+
+.marquee1{
+    width:1200px;
+    margin: 0 auto;
+    white-space:nowrap;
+    overflow:hidden;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    background-color: yellow;
+    padding: 2px;
+    font-size: 20px;
+
+}
+
+.marquee1 p span {
+    color:red;
+    font-weight: bold;
+    font-size:25px;
+    display:inline-block;
+    width: 100%;
+    text-align: center;
+}
+.marquee span:hover{
+    animation-play-state: paused;
+}
+@-webkit-keyframes marquee {
+    0%{-webkit-transform: translate(0, 0);}
+    100%{-webkit-transform: translate(-100%, 0);}
+}
+@keyframes marquee {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-100%, 0)
+    }
+}
+
