@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Продукты</title>
+    <title>Продукты. {{ product.name }}</title>
 {% endblock %}
 
 <article>
@@ -10,7 +10,7 @@
     {% block titlePage %}
         <div id="news" style="margin-bottom:5px;">
                 <h1><p>
-                    Продукты
+                    {{ product.name }}
                 </p></h1>
             </div>
     {% endblock %}
@@ -18,18 +18,20 @@
 </article>
 
 {% block pathInc %}
-    <a href="/">Главная</a> &rarr;&nbsp;Продукты
+    <a href="/">Главная</a> &rarr;&nbsp;<a href="/products/{{ product.category.id }}">{{ product.category.name }}</a> -> {{ product.name }}
 {% endblock %}
 
 {% block content %}
 
-        {% for product in products %}
-        <a href="{{ product.get_absolute_url }}"><h3>{{ product.name }}</h3></a>
-        {% if product.image %}
-            <img src={{ product.image.url }} width="127">
-        {% endif %}
-        <div>{{ product.short_desc }}</div>
-    {% endfor %}
+    <h3>{{ product.name }}</h3>
+    {% if product.image %}
+        <img src={{ product.image.url }} width="300">
+    {% endif %}
+    <div><b>Краткое описание:</b> {{ product.short_desc }}</div>
+    <div><b>Описание:</b> {{ product.description }}</div>
+    <div><b>Цена:</b> {{ product.price }}</div>
+    <div><b>Количество:</b> {{ product.quantity }}</div>
+
 
 {% endblock %}
 

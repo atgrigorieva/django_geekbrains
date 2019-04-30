@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ProductCategory, Product
+from .models import ProductCategory, Product, Content
 
 def main(request):
     return render(request, 'mainapp/index.html')
@@ -9,9 +9,9 @@ def contacts(request):
     return render(request, 'mainapp/contacts.html')
 
 def products(request, pk=None):
-    filter = {'products': Product.objects.filter(category=pk)}
+    context = {'products': Product.objects.filter(category=pk)}
     #context = {'products': Product.objects.all()}
-    return render(request, 'mainapp/products.html', filter)
+    return render(request, 'mainapp/products.html', context)
 
 
 def categories(request):
@@ -20,7 +20,7 @@ def categories(request):
 
 
 def productPage(request, pk = None, name=None):
-    context = {'products':  Product.objects.filter(category=pk), 'product': Product.objects.filter(name=name)}
+    context = {'product': Product.objects.filter(category=pk).get(name=name)}
     return render(request, 'mainapp/product-page.html', context)
 
 
@@ -30,3 +30,9 @@ def cooperation(request):
 
 def about_us(request):
     return render(request, 'mainapp/about_us.html')
+
+
+def content(request, name=None):
+    print(name)
+    context = {'content': Content.objects.filter(name=name)}
+    return render(request, 'mainapp/content.html', context)
