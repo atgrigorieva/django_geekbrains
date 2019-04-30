@@ -19,9 +19,9 @@ def categories(request):
     return render(request, 'mainapp/categories.html', context)
 
 
-def productPage(request, name=None):
-    filter = {'product': Product.objects.filter(name=name)}
-    return render(request, 'mainapp/product-page.html', filter)
+def productPage(request, pk = None, name=None):
+    context = {'products':  Product.objects.filter(category=pk), 'product': Product.objects.filter(name=name)}
+    return render(request, 'mainapp/product-page.html', context)
 
 
 def cooperation(request):

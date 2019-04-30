@@ -23,6 +23,13 @@
 
 {% block content %}
 
+        {% for product in products %}
+        <a href="{{ product.get_absolute_url }}"><h3>{{ product.name }}</h3></a>
+        {% if product.image %}
+            <img src={{ product.image.url }} width="127">
+        {% endif %}
+        <div>{{ product.short_desc }}</div>
+    {% endfor %}
 
 {% endblock %}
 
