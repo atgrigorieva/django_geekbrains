@@ -16,13 +16,35 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import mainapp.views as mainapp
+from django.conf import settings
+from django.conf.urls.static import static
+from django.conf.urls import include, url
+
+
 
 urlpatterns = [
 
     path('', mainapp.main, name='main'),
     path('contacts/', mainapp.contacts, name='contacts'),
     path('cooperation/', mainapp.cooperation, name='cooperation'),
+    path('products/',  include('mainapp.urls', namespace='products')),
+    path('categories/',  mainapp.categories, name='categories'),
+    path('content/',  include('mainapp.urls', namespace='content')),
+    #path('products/', mainapp.products, name='products'),
     path('about_us/', mainapp.about_us, name='about_us'),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 
     path('admin/', admin.site.urls),
-]
+]+ static(
+    settings.STATIC_URL,
+    document_root=settings.STATIC_ROOT
+) + static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
