@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'authapp'
 ]
 
 MIDDLEWARE = [
@@ -156,3 +157,5 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+
+AUTH_USER_MODEL = 'authapp.ShopUser'

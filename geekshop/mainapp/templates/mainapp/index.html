@@ -248,4 +248,15 @@
 {% block timeBlock %}
     <p><span>{{ 'Цены указаны без учета НДС. НДС сверху 20%.' | title }}</span></p>
     <p><span>Цены действительны на {% now "d.m.Y"%}</span></p>
+
+
+    {% if request.user.is_anonymous %}
+        <a href="{% url 'auth:login' %}">Войти</a> или <a href="{% url 'auth:register' %}">Зарегистрироваться</a>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <h1>Привет {{ request.user.username|title }}!</h1>
+        <a href="{% url 'auth:edit' %}">Редактировать</a>
+        <br>
+        <a href="{% url 'auth:logout' %}">Выйти</a>
+    {% endif %}
 {% endblock %}
