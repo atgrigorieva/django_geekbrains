@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'mainapp',
     'ckeditor',
     'ckeditor_uploader',
-    'authapp'
+    'authapp',
+    'basketapp'
 ]
 
 MIDDLEWARE = [

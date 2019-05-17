@@ -25,10 +25,21 @@
         <div class="header-menu row">
 
             <div class="liket col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
-
+                <a href="#" class="search"></a>
+                <a href="{% url 'basket:view' %}" class="basket">
+                    <span>
+                        Количество товаров в корзине:{% if basket %} {{ quantity }} {% endif %}
+                    </span>
+                    <br>
+                    <span>
+                        Цена покупки:{% if basket %} {{ price_basket }} {% endif %}
+                    </span>
+                </a>
             </div>
             <nav id="menu" class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
                 <!--<a href="" class="toggleMenu">МЕНЮ</a>-->
+
+
 
                 {% include 'mainapp/includes/inc_menu.html' %}
 
