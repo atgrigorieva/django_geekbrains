@@ -33,6 +33,7 @@ urlpatterns = [
     #path('products/', mainapp.products, name='products'),
     path('about_us/', mainapp.about_us, name='about_us'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    path('auth/', include('authapp.urls', namespace='auth')),
 
 
     path('admin/', admin.site.urls),

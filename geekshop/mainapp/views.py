@@ -8,7 +8,7 @@ def main(request):
 def contacts(request):
     return render(request, 'mainapp/contacts.html')
 
-def products(request, pk=None):
+def products(request, pk=None, name=None):
     context = {'products': Product.objects.filter(category=pk)}
     #context = {'products': Product.objects.all()}
     return render(request, 'mainapp/products.html', context)
