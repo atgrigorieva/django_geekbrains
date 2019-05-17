@@ -15,16 +15,18 @@ def products(request, pk=None):
     title = 'продукты'
     links_menu = ProductCategory.objects.all()
 
-    basket = []
+    basket_quantity = []
+    basket_price = []
     if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+        basket_quantity = Basket.objects.filter(user=request.user)
+        basket_price = Basket.objects.filter(user=request.user)
 
-    if sum(list(map(lambda basket: basket.quantity, basket))) == 0:
-        quantity = 1
-    else:
-        quantity = sum(list(map(lambda basket: basket.quantity, basket)))
-    print(basket[0])
-    price_basket = sum(list(map(lambda basket: basket.price_basket, basket)))
+    quantity = sum(list(map(lambda basket: basket.quantity, basket_quantity)))
+
+    test = list(map(lambda basket: basket.quantity, basket_quantity))
+
+    print(list(map(lambda basket_: basket_.price_basket, basket_price)))
+    price_basket = sum(list(map(lambda basket: basket.price_basket, basket_price)))
 
 
     if pk:
@@ -40,7 +42,7 @@ def products(request, pk=None):
             'links_menu': links_menu,
             'category': category,
             'products': products,
-            'basket': basket,
+            'basket': basket_price,
             'quantity': quantity,
             'price_basket': price_basket
         }
