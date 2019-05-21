@@ -28,12 +28,15 @@ urlpatterns = [
     path('contacts/', mainapp.contacts, name='contacts'),
     path('cooperation/', mainapp.cooperation, name='cooperation'),
     path('products/',  include('mainapp.urls', namespace='products')),
+    path('products/<int:pk>/<str:name>',  mainapp.productPage, name='productPage'),
     path('categories/',  mainapp.categories, name='categories'),
-    path('content/',  include('mainapp.urls', namespace='content')),
+    path('<str:name>',  mainapp.content, name='content'),
     #path('products/', mainapp.products, name='products'),
     path('about_us/', mainapp.about_us, name='about_us'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('auth/', include('authapp.urls', namespace='auth')),
+    path('basket/', include('basketapp.urls', namespace='basket')),
+
 
 
     path('admin/', admin.site.urls),
