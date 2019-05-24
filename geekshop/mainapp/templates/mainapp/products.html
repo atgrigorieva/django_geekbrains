@@ -1,39 +1,30 @@
-{% extends 'mainapp/information.html' %}
-{% load static %}
+{% extends 'mainapp/base.html' %}
+{% load custom_tags %}
 
 {% block title %}
     <title>Продукты</title>
 {% endblock %}
 
-<article>
-
-    {% block titlePage %}
-        <div id="news" style="margin-bottom:5px;">
-                <h1><p>
-                    Продукты
-                </p></h1>
-            </div>
-    {% endblock %}
-
-</article>
-
-{% block pathInc %}
-    <a href="/">Главная</a> &rarr;&nbsp;Категория
-{% endblock %}
-
 {% block content %}
-
-    {% for product in products %}
-        <a href="{{ product.get_absolute_url }}"><h3>{{ product.name }}</h3></a>
-        {% if product.image %}
-            <img src={{ product.image.url }} width="127">
-        {% endif %}
-        <div>{{ product.short_desc }}</div>
-    {% endfor %}
-
+    {% include 'mainapp/includes/inc_menu.html' %}
+    <h1>Продукты</h1>
+    <div>Количество продуктов в корзине: {{ request.user|basket_total_quantity }}</div>
+    <div>Общая стоимость корзины: {{ request.user|basket_total_cost }}</div>
+    {% include 'mainapp/includes/inc_category_menu.html' %}
+    <div style="display: flex; flex-wrap: wrap;" class="category-products clearfix">
+        {% for product in products %}
+            <div style="margin: 20px" class="block">
+                  <div class="card" style="width: 18rem;">
+                      <img src="/media/{{ product.image }}" class="card-img-top" alt="product">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ product.name }}</h5>
+                          <p class="card-text">{{ product.short_desc }}</p>
+                          <a href="{% url 'basket:add' product.pk %}">Добавить в корзину</a>
+                          <br>
+                          <a href="{% url 'basket:delete' product.pk %}">Удалить из корзины</a>
+                      </div>
+                  </div>
+              </div>
+        {% endfor %}
+    </div>
 {% endblock %}
-
-{% block information %}
-    {% include 'mainapp/includes/inc_information.html' %}
-{% endblock %}
-

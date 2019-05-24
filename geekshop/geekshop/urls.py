@@ -15,40 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 import mainapp.views as mainapp
-from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import include, url
-
-
+from django.conf import settings
 
 urlpatterns = [
-
     path('', mainapp.main, name='main'),
+    path('products/', include('mainapp.urls', namespace='products')),
     path('contacts/', mainapp.contacts, name='contacts'),
-    path('cooperation/', mainapp.cooperation, name='cooperation'),
-    path('products/',  include('mainapp.urls', namespace='products')),
-    path('products/<int:pk>/<str:name>',  mainapp.productPage, name='productPage'),
-    path('categories/',  mainapp.categories, name='categories'),
-    path('<str:name>',  mainapp.content, name='content'),
-    #path('products/', mainapp.products, name='products'),
-    path('about_us/', mainapp.about_us, name='about_us'),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    path('common/', mainapp.common),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),
-
-
-
+    path('admin_custom/', include('adminapp.urls', namespace='admin_custom')),
     path('admin/', admin.site.urls),
-]+ static(
-    settings.STATIC_URL,
-    document_root=settings.STATIC_ROOT
-) + static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)
-
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

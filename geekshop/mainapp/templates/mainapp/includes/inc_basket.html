@@ -1,0 +1,20 @@
+{# <a href="{% url 'basket:view' %}" class="basket">#}
+{#    <span>#}
+{#         Количество товаров в корзине:{% if basket %} {{ quantity }} {% endif %}#}
+{##}
+{#    </span>#}
+{#    <br>#}
+{#    <span>#}
+{#        Цена покупки:{% if basket %} {{ price_basket }} {% endif %}#}
+{#    </span>#}
+{#</a>#}
+
+<a href="{% url 'basket:view' %}" class="basket">
+  <span>
+    {% if basket %}
+      Цена покупки: {{ basket.0.total_cost|floatformat:0  }} руб
+        <br/>
+      Количество товаров в корзине: ({{ basket.0.total_quantity }} шт)
+    {% endif %}
+  </span>
+</a>
