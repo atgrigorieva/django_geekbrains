@@ -1,43 +1,67 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from basketapp.models import Basket
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, HttpResponse
+from .models import BasketSlot
 from mainapp.models import Product
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
+@login_required
 def basket(request):
-    content = {}
-    return render(request, 'basketapp/basket.html', content)
+    basket = []
+    if request.user.is_authenticated:
+        basket = request.user.basket.all()
+
+    return render(request, 'basketapp/basket.html', {'basket_items': basket})
 
 
-def basket_add(request, pk):
+@login_required
+def add(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
 
-    basket = Basket.objects.filter(user=request.user, product=product).first()
+    basket_slot_old = BasketSlot.objects.filter(product=product).first()
 
-    if basket:
-        basket.quantity += 1
-        basket.price_basket += product.price
-        basket.save()
+    if basket_slot_old:
+        basket_slot_old.quantity += 1
+        basket_slot_old.save()
     else:
-        basket = Basket(product=product, user=request.user)
-        basket.quantity += 1
-        basket.price_basket += product.price
-        basket.save()
+        basket_slot = BasketSlot(product=product, user=request.user)
+        basket_slot.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def basket_remove(request, pk):
+@login_required
+def delete(request, pk=None):
     product = get_object_or_404(Product, pk=pk)
 
-    basket = Basket.objects.filter(product=product).first()
+    basket_slot = BasketSlot.objects.filter(product=product).first()
 
-    if basket:
-        if basket.quantity > 1:
-            basket.quantity -= 1
-            #print(basket.price_basket)
-            basket.price_basket -= product.price
-            basket.save()
+    if basket_slot:
+        if basket_slot.quantity > 1:
+            basket_slot.quantity -= 1
+            basket_slot.save()
         else:
-            basket.delete()
+            basket_slot.delete()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def edit(request, pk=None):
+    if request.is_ajax():
+        basket_slot = get_object_or_404(BasketSlot, pk=pk)
+
+        if request.GET.get('quantity'):
+            basket_slot.quantity = request.GET.get('quantity')
+            basket_slot.save()
+
+        basket_items = BasketSlot.objects.filter(user=request.user)
+
+        context = {
+            'basket_items': basket_items,
+        }
+
+        result = render_to_string('basketapp/includes/inc_basket_list.html', context)
+
+        return JsonResponse({'result': result})

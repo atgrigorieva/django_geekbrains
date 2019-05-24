@@ -1,13 +1,12 @@
-
-
-<ul id="nav7">
-    <li><a href="{% url 'about_us' %}">О нас</a></li>
-    <li><a href="{% url 'cooperation' %}">Сотрудничество</a> </li>
-    <li><a href="{% url 'contacts' %}">Контакты</a></li>
-    <li><a href="{% url 'categories' %}">Продукция</a></li>
-
-
-{#    <li class="right"><a href="{% url 'products:index' %}">Продукция</a></li>#}
-
-</ul>
-
+<div class="menu">
+    <a href="{% url 'main' %}" class="{% if request.resolver_match.url_name == 'main' %}
+        active
+    {% endif %} menu-item">
+        домой</a>
+    <a href="{% url 'products:index' %}" class="{% if request.resolver_match.namespace == 'products' %}
+        active
+    {% endif %} menu-item">продукты</a>
+    <a href="{% url 'contacts' %}" class="{% if request.resolver_match.url_name == 'contacts' %}
+        active
+    {% endif %} menu-item">контакты</a>
+</div>
